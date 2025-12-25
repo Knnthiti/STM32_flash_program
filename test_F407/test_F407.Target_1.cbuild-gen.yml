@@ -1,0 +1,20 @@
+build-gen:
+  board: 
+  compiler: AC6
+  device: STM32F407VETx
+  generated-by: uVision version 5.43.1.0
+  processor:
+    core: Cortex-M4
+    dsp: on
+    endian: little
+    fpu: sp
+  add-path: 
+  components:
+    - component: ARM::CMSIS:CORE@6.1.1
+      from-pack: ARM::CMSIS@6.2.0
+    - component: Keil::Device:CubeMX@1.0.0
+      from-pack: Keil::STM32F4xx_DFP@3.1.1
+  apis: 
+  groups:
+    - group: Source Group 1
+      files: 
