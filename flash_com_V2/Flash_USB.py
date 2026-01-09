@@ -73,4 +73,8 @@ message = "Ukulele ukulele \n \0"
 message = bytes(message, "utf-8")
 
 while True:
-    update_flash_mem(serial_com, "test_F407.bin")
+    command = int(input("enter the command number 1 :"))
+    if command == 1:
+        update_flash_mem(serial_com, "test_F407.bin")
+    else:
+        break
