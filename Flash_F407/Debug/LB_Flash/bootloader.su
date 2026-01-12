@@ -1,0 +1,12 @@
+../Drivers/CMSIS/Include/core_cm4.h:1938:34:__NVIC_SystemReset	4	static,ignoring_inline_asm
+../LB_Flash/bootloader.c:25:17:GetSector	16	static
+../LB_Flash/bootloader.c:39:6:bootloaderInit	24	static
+../LB_Flash/bootloader.c:86:6:flashWord	32	static
+../LB_Flash/bootloader.c:116:10:readWord	16	static
+../LB_Flash/bootloader.c:121:6:eraseMemory	40	static
+../LB_Flash/bootloader.c:151:6:unlockFlashAndEraseMemory	8	static
+../LB_Flash/bootloader.c:157:6:lockFlash	8	static
+../LB_Flash/bootloader.c:163:6:jumpToApp	32	static,ignoring_inline_asm
+../LB_Flash/bootloader.c:189:9:string_compare	24	static
+../LB_Flash/bootloader.c:194:6:errorBlink	8	static
+../LB_Flash/bootloader.c:203:6:messageHandler	24	static,ignoring_inline_asm

@@ -1,4 +1,4 @@
-stm32cubemx/stm32f4xx_ll_rcc.o: \
+./stm32cubemx/stm32f4xx_ll_rcc.o: \
   ..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_rcc.c \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_rcc.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \

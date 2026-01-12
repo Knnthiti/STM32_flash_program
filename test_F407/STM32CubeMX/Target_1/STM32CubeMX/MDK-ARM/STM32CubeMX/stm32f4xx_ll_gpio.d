@@ -1,4 +1,4 @@
-stm32cubemx/stm32f4xx_ll_gpio.o: \
+./stm32cubemx/stm32f4xx_ll_gpio.o: \
   ..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_gpio.c \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_gpio.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \

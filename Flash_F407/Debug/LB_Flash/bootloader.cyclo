@@ -1,0 +1,12 @@
+../Drivers/CMSIS/Include/core_cm4.h:1938:34:__NVIC_SystemReset	1
+../LB_Flash/bootloader.c:25:17:GetSector	17
+../LB_Flash/bootloader.c:39:6:bootloaderInit	6
+../LB_Flash/bootloader.c:86:6:flashWord	4
+../LB_Flash/bootloader.c:116:10:readWord	1
+../LB_Flash/bootloader.c:121:6:eraseMemory	3
+../LB_Flash/bootloader.c:151:6:unlockFlashAndEraseMemory	1
+../LB_Flash/bootloader.c:157:6:lockFlash	1
+../LB_Flash/bootloader.c:163:6:jumpToApp	1
+../LB_Flash/bootloader.c:189:9:string_compare	1
+../LB_Flash/bootloader.c:194:6:errorBlink	1
+../LB_Flash/bootloader.c:203:6:messageHandler	8
