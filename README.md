@@ -100,15 +100,18 @@ Jump: Branches to the Reset Handler of the Application.
 ---
 
 ## 🚀 Usage Guide
-Step 1: Prepare the User Application
-Linker Script (.ld): Change the Flash origin address.
+### Step 1: Prepare the User Application
+Navigate to the project folder:
+📂 **[STM32_flash_program/Flash_F407](./STM32_flash_program/Flash_F407)**
+
+**1. Linker Script (.ld):** Change the Flash origin address.
 
 ```c
 /* In STM32F407x_FLASH.ld */
 FLASH (rx) : ORIGIN = 0x800C000, LENGTH = ...
 ```
 
-Vector Table Offset: Set this in system_stm32f4xx.c OR main.c.
+**2. Vector Table Offset: Set this in system_stm32f4xx.c OR main.c.
 
 ```
 /* Option A: In system_stm32f4xx.c */
@@ -125,7 +128,7 @@ Step 3: Run the Python Script
 Connect the STM32 via USB to the PC and run the script:
 
 ```
-python Flash_USB.py
+STM32_flash_program/flash_com_V2/Flash_USB.py
 ```
 
 Enter the COM port and select the binary file when prompted.
