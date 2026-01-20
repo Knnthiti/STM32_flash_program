@@ -121,10 +121,10 @@ FLASH (rx) : ORIGIN = 0x800C000, LENGTH = ...
 SCB->VTOR = 0x0800C000;
 ```
 
-Step 2: Flash the Bootloader
+### Step 2: Flash the Bootloader
 Flash the Bootloader code to the STM32 (Sector 0) using ST-Link.
 
-Step 3: Run the Python Script
+### Step 3: Run the Python Script
 Connect the STM32 via USB to the PC and run the script:
 
 📂 **[flash_com_V2/Flash_USB.py](./flash_com_V2/Flash_USB.py)**
