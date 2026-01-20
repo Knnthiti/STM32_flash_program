@@ -102,7 +102,10 @@ Jump: Branches to the Reset Handler of the Application.
 ## 🚀 Usage Guide
 ### Step 1: Prepare the User Application
 Navigate to the project folder:
-📂 **[/Flash_F407](./Flash_F407)**
+
+📂 **[/Flash_F407](./Flash_F407)** : my project
+
+📚 **[/LB_Flash](./LB_Flash)** : LB_Flash is library of Flash_F407
 
 **1. Linker Script (.ld):** Change the Flash origin address.
 
