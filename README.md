@@ -18,6 +18,8 @@ A custom Bootloader implementation for **STM32F407** Microcontrollers using the 
 
 The Flash memory is partitioned into two distinct regions. The Bootloader resides at the beginning of the Flash, while the User Application starts at a specific offset (Sector 3).
 
+---
+
 ### 💾 Memory Map (STM32F407)
 
 | Region | Start Address | Flash Sector | Description |
@@ -51,6 +53,8 @@ The PC (Host) communicates with the STM32 (Device) using a custom packet structu
 -✅ ACK (0x5F): Packet received, verified, and written successfully.
 
 -❌ NACK (0xAA): Error (CRC mismatch, size error, or flash write failure).
+
+---
 
 ## 📂 Project Structure
 Bootloader Firmware: STM32 C code handles the USB CDC, Flash memory logic, and Jump mechanism.
