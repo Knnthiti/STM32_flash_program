@@ -6,7 +6,7 @@ A custom Bootloader implementation for **STM32F407** Microcontrollers using the 
 
 ## 📋 Table of Contents
 - [System Architecture](#-system-architecture)
-- [Memory Map](#-memory-map)
+- [Memory Map](#-memory-map-stm32f407)
 - [Communication Protocol](#-communication-protocol)
 - [Project Structure](#-project-structure)
 - [How It Works](#-how-it-works)
