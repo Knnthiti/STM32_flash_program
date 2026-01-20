@@ -11,7 +11,6 @@ A custom Bootloader implementation for **STM32F407** Microcontrollers using the 
 - [Project Structure](#-project-structure)
 - [How It Works](#-how-it-works)
 - [Usage Guide](#-usage-guide)
-- [Critical Technical Details](#-critical-technical-details)
 
 ---
 
