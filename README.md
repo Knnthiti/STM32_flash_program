@@ -102,7 +102,7 @@ Jump: Branches to the Reset Handler of the Application.
 ## 🚀 Usage Guide
 ### Step 1: Prepare the User Application
 Navigate to the project folder:
-📂 **[STM32_flash_program/Flash_F407](./STM32_flash_program/Flash_F407)**
+📂 **[/Flash_F407](./Flash_F407)**
 
 **1. Linker Script (.ld):** Change the Flash origin address.
 
@@ -127,8 +127,6 @@ Flash the Bootloader code to the STM32 (Sector 0) using ST-Link.
 Step 3: Run the Python Script
 Connect the STM32 via USB to the PC and run the script:
 
-```
-STM32_flash_program/flash_com_V2/Flash_USB.py
-```
+📂 **[flash_com_V2/Flash_USB.py](./flash_com_V2/Flash_USB.py)**
 
 Enter the COM port and select the binary file when prompted.
