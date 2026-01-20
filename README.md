@@ -65,7 +65,7 @@ User Application: The target firmware (must be linked to 0x0800 C000).
 
 ---
 
-## ⚙️ How It Works
+## <a id="how-it-works"></a>⚙️ How It Works
 1. Host Side (Python)
 Read File: Opens the .bin firmware file.
 
