@@ -18,9 +18,7 @@ A custom Bootloader implementation for **STM32F407** Microcontrollers using the 
 
 The Flash memory is partitioned into two distinct regions. The Bootloader resides at the beginning of the Flash, while the User Application starts at a specific offset (Sector 3).
 
----
-
-### 💾 Memory Map (STM32F407)
+## 💾 Memory Map (STM32F407)
 
 | Region | Start Address | Flash Sector | Description |
 | :--- | :--- | :--- | :--- |
@@ -33,7 +31,7 @@ The Flash memory is partitioned into two distinct regions. The Bootloader reside
 
 The PC (Host) communicates with the STM32 (Device) using a custom packet structure over USB Serial.
 
-### Packet Structure
+## Packet Structure
 ```text
 [Token (1B)] + [Command (1B)] + [Length (2B)] + [Data (N Bytes)] + [CRC32 (4B)]
 ```
