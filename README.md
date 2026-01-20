@@ -9,7 +9,7 @@ A custom Bootloader implementation for **STM32F407** Microcontrollers using the 
 - [Memory Map](#-memory-map-stm32f407)
 - [Communication Protocol](#-communication-protocol)
 - [Project Structure](#-project-structure)
-- [How It Works](#-how-it-works)
+- [How It Works](#how-it-works)
 - [Usage Guide](#-usage-guide)
 
 ---
@@ -17,6 +17,8 @@ A custom Bootloader implementation for **STM32F407** Microcontrollers using the 
 ## 🧠 System Architecture
 
 The Flash memory is partitioned into two distinct regions. The Bootloader resides at the beginning of the Flash, while the User Application starts at a specific offset (Sector 3).
+
+---
 
 ## 💾 Memory Map (STM32F407)
 
@@ -31,7 +33,7 @@ The Flash memory is partitioned into two distinct regions. The Bootloader reside
 
 The PC (Host) communicates with the STM32 (Device) using a custom packet structure over USB Serial.
 
-## Packet Structure
+### Packet Structure
 ```text
 [Token (1B)] + [Command (1B)] + [Length (2B)] + [Data (N Bytes)] + [CRC32 (4B)]
 ```
@@ -60,6 +62,8 @@ Bootloader Firmware: STM32 C code handles the USB CDC, Flash memory logic, and J
 Python Host Script: Reads the binary file, handles padding, calculates CRC, and sends data packets.
 
 User Application: The target firmware (must be linked to 0x0800 C000).
+
+---
 
 ## ⚙️ How It Works
 1. Host Side (Python)
@@ -92,6 +96,8 @@ De-Init: The Bootloader disables USB, SysTick, and resets the RCC Clock to defau
 Stack Pointer: Sets the Main Stack Pointer (MSP) using the value at 0x0800 C000.
 
 Jump: Branches to the Reset Handler of the Application.
+
+---
 
 ## 🚀 Usage Guide
 Step 1: Prepare the User Application
