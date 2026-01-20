@@ -110,62 +110,61 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		if (uart_size) {
-			// 1. �?ปลงข้อมูล�?่อน
-			if (parse_request(&command_pc, received_data, uart_size)) {
-				boot_send_nack(); // ข้อมูลผิด format
-			} else {
-				// ข้อมูลถู�?ต้อง... มาเช็คคำสั่ง�?ัน
-				switch (command_pc.rw_request) {
-				case BOOT_UPDATE_REQUSET:
-					// ---------------------------------------------------------
-					// 2. เช็คว่าเป็น�?้อน�?ร�?หรือไม่? (Address ยังอยู่ที่จุดเริ่มไหม)
-					// ---------------------------------------------------------
-					// ใน case BOOT_UPDATE_REQUSET:
-					if (address == 0x0800C000UL) {
-						HAL_FLASH_Unlock();
-						FLASH_EraseInitTypeDef EraseInitStruct;
-						uint32_t SectorError;
+      // 1. Parse the received data first
+      if (parse_request(&command_pc, received_data, uart_size)) {
+        boot_send_nack(); // Error: Invalid data format
+      } else {
+        // Data is valid... Let's check the command
+        switch (command_pc.rw_request) {
+        case BOOT_UPDATE_REQUSET:
+          // ---------------------------------------------------------
+          // 2. Check if this is the first data packet (Is address at the start?)
+          // ---------------------------------------------------------
+          // In case BOOT_UPDATE_REQUSET:
+          if (address == 0x0800C000UL) {
+            HAL_FLASH_Unlock();
+            FLASH_EraseInitTypeDef EraseInitStruct;
+            uint32_t SectorError;
 
-						EraseInitStruct.TypeErase = FLASH_TYPEERASE_SECTORS;
-						EraseInitStruct.VoltageRange = FLASH_VOLTAGE_RANGE_3;
-						EraseInitStruct.Sector = FLASH_SECTOR_3;
+            EraseInitStruct.TypeErase = FLASH_TYPEERASE_SECTORS;
+            EraseInitStruct.VoltageRange = FLASH_VOLTAGE_RANGE_3;
+            EraseInitStruct.Sector = FLASH_SECTOR_3;
 
-						// �?�?้ตรงนี้! ลบเผื่อไปเลยครับ (เช่น App ขนาดไม่เ�?ิน 200KB)
-						// Sector 1 (16KB) + Sec 2 (16KB) + Sec 3 (16KB) + Sec 4 (64KB) + Sec 5 (128KB)
-						// รวม 5 Sectors
-						EraseInitStruct.NbSectors = 5;
+            // Note: Erase multiple sectors to cover the expected App size (e.g., < 200KB)
+            // Starting from Sector 3, covering 5 sectors total (Sector 3, 4, 5, 6, 7)
+            EraseInitStruct.NbSectors = 5;
 
-						if (HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError)
-								!= HAL_OK) {
-							boot_send_nack();
-							// อย่าลืม Lock �?ลับถ้า Error
-							HAL_FLASH_Lock();
-							break;
-						}
-						HAL_FLASH_Lock();
-					}
-					// ---------------------------------------------------------
+            if (HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError)
+                != HAL_OK) {
+              boot_send_nack();
+              // Important: Lock the Flash again if an error occurs
+              HAL_FLASH_Lock();
+              break;
+            }
+            HAL_FLASH_Lock();
+          }
+          // ---------------------------------------------------------
 
-					// 3. เขียนข้อมูลลง Flash (ทำทุ�?รอบ)
-					store_flash_memory(address, command_pc.data,
-							command_pc.data_size);
+          // 3. Write data to Flash memory (Execute for every packet)
+          store_flash_memory(address, command_pc.data,
+              command_pc.data_size);
 
-					// 4. ขยับ Address ไปรอรับ�?้อนถัดไป
-					address += command_pc.data_size;
+          // 4. Increment the address to prepare for the next data chunk
+          address += command_pc.data_size;
 
-					boot_send_ack();
-					break;
-				}
-			}
-			uart_size = 0; // เคลียร์ flag
-		}
+          boot_send_ack();
+          break;
+        }
+      }
+      uart_size = 0; // Clear the flag/size
+    }
 
-		if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 1) {
-			HAL_Delay(100);
-			JumpToApplication();
-		}
-
-	}
+    // Check if the User Button (PA0) is pressed to jump to the Application
+    if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 1) {
+      HAL_Delay(100); // Debounce
+      JumpToApplication();
+    }
+  }
   /* USER CODE END 3 */
 }
 
