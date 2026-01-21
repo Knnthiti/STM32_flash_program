@@ -110,61 +110,50 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		if (uart_size) {
-      // 1. Parse the received data first
-      if (parse_request(&command_pc, received_data, uart_size)) {
-        boot_send_nack(); // Error: Invalid data format
-      } else {
-        // Data is valid... Let's check the command
-        switch (command_pc.rw_request) {
-        case BOOT_UPDATE_REQUSET:
-          // ---------------------------------------------------------
-          // 2. Check if this is the first data packet (Is address at the start?)
-          // ---------------------------------------------------------
-          // In case BOOT_UPDATE_REQUSET:
-          if (address == 0x0800C000UL) {
-            HAL_FLASH_Unlock();
-            FLASH_EraseInitTypeDef EraseInitStruct;
-            uint32_t SectorError;
+			if (parse_request(&command_pc, received_data, uart_size)) {
+				boot_send_nack();
+			} else {
+				switch (command_pc.rw_request) {
+				case BOOT_UPDATE_REQUSET:
+					if (address == 0x0800C000UL) {
+						HAL_FLASH_Unlock();
+						FLASH_EraseInitTypeDef EraseInitStruct;
+						uint32_t SectorError;
 
-            EraseInitStruct.TypeErase = FLASH_TYPEERASE_SECTORS;
-            EraseInitStruct.VoltageRange = FLASH_VOLTAGE_RANGE_3;
-            EraseInitStruct.Sector = FLASH_SECTOR_3;
+						EraseInitStruct.TypeErase = FLASH_TYPEERASE_SECTORS;
+						EraseInitStruct.VoltageRange = FLASH_VOLTAGE_RANGE_3;
+						EraseInitStruct.Sector = FLASH_SECTOR_3;
+						EraseInitStruct.NbSectors = 5;
 
-            // Note: Erase multiple sectors to cover the expected App size (e.g., < 200KB)
-            // Starting from Sector 3, covering 5 sectors total (Sector 3, 4, 5, 6, 7)
-            EraseInitStruct.NbSectors = 5;
+						if (HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError)
+								!= HAL_OK) {
+							boot_send_nack();
+							HAL_FLASH_Lock();
+							break;
+						}
+						HAL_FLASH_Lock();
+					}
+					// ---------------------------------------------------------
 
-            if (HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError)
-                != HAL_OK) {
-              boot_send_nack();
-              // Important: Lock the Flash again if an error occurs
-              HAL_FLASH_Lock();
-              break;
-            }
-            HAL_FLASH_Lock();
-          }
-          // ---------------------------------------------------------
 
-          // 3. Write data to Flash memory (Execute for every packet)
-          store_flash_memory(address, command_pc.data,
-              command_pc.data_size);
+					store_flash_memory(address, command_pc.data,
+							command_pc.data_size);
 
-          // 4. Increment the address to prepare for the next data chunk
-          address += command_pc.data_size;
+					address += command_pc.data_size;
 
-          boot_send_ack();
-          break;
-        }
-      }
-      uart_size = 0; // Clear the flag/size
-    }
+					boot_send_ack();
+					break;
+				}
+			}
+			uart_size = 0;
+		}
 
-    // Check if the User Button (PA0) is pressed to jump to the Application
-    if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 1) {
-      HAL_Delay(100); // Debounce
-      JumpToApplication();
-    }
-  }
+		if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 1) {
+			HAL_Delay(100);
+			JumpToApplication();
+		}
+
+	}
   /* USER CODE END 3 */
 }
 
@@ -256,20 +245,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
-
   /*Configure GPIO pin : PA0 */
   GPIO_InitStruct.Pin = GPIO_PIN_0;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PA1 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */

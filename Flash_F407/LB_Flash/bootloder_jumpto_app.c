@@ -9,7 +9,6 @@
 #include "stm32f4xx_it.h"
 #include "bootloder_jumpto_app.h"
 
-
 #include "usbd_core.h"
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
@@ -32,9 +31,9 @@ void JumpToApplication(void)
     appResetHandler = *(volatile uint32_t*)(APP_START_ADDR + 4);
     appEntry = (pFunction)appResetHandler;
 
-    USBD_DeInit(&hUsbDeviceFS);  // 1. De-initialize USB (Critical! If skipped, the App will crash during its USB re-init)
-    HAL_RCC_DeInit();            // 2. De-initialize RCC (Reset system clock to default HSI)
-    HAL_DeInit();                // 3. De-initialize the HAL library (Reset all peripherals)
+    USBD_DeInit(&hUsbDeviceFS);
+    HAL_RCC_DeInit();
+    HAL_DeInit();
     /* Disable interrupts */
     __disable_irq();
 
