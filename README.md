@@ -1,4 +1,4 @@
-# STM32 USB CDC Bootloader 🚀
+# STM32 USB CDC Bootloader
 
 A custom Bootloader implementation for **STM32F407** Microcontrollers using the **USB CDC (Virtual COM Port)** interface. This project enables firmware updates directly from a PC via a Python script, eliminating the need for external hardware programmers (like ST-Link/J-Link) for field updates.
 
@@ -99,7 +99,7 @@ Jump: Branches to the Reset Handler of the Application.
 
 ---
 
-## 🚀 Usage Guide
+## 💻 Usage Guide
 ### Step 1: Prepare the User Application
 Navigate to the project folder:
 
