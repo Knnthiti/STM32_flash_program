@@ -99,7 +99,7 @@ Jump: Branches to the Reset Handler of the Application.
 
 ---
 
-## Usage Guide
+## 💻 Usage Guide
 ### Step 1: Prepare the User Application
 Navigate to the project folder:
 
